@@ -1,22 +1,25 @@
 import React from "react";
+import OurContext from "../OurContext";
 
-function Sidebar(props) {
+function Sidebar() {
+  const state = React.useContext(OurContext);
+
   return (
     <div className="sidebar">
       <input
         type="text"
-        value={props.size}
-        onChange={(event) => props.setSize(event.target.value)}
+        value={state.size}
+        onChange={(event) => state.setSize(event.target.value)}
       />
       <input
         type="text"
-        value={props.color}
-        onChange={(event) => props.setColor(event.target.value)}
+        value={state.color}
+        onChange={(event) => state.setColor(event.target.value)}
       />
       <button
         onClick={() => {
-          props.setSize(30);
-          props.setColor("pink");
+          state.setSize(30);
+          state.setColor("pink");
         }}
       >
         Make the text 30px and pink

@@ -1,13 +1,16 @@
 import React from "react";
+import OurContext from "../OurContext";
 
-function Footer(props) {
+function Footer() {
+  const state = React.useContext(OurContext);
+
   return (
     <footer className="footer">
       <p>
         This is the footer.{" "}
         <button
           onClick={() => {
-            props.setSize(40);
+            state.setSize(40);
           }}
         >
           Make the text 40px but leave the color the same
@@ -16,8 +19,8 @@ function Footer(props) {
       <p>
         <button
           onClick={() => {
-            if (props.setLikeCount) {
-              props.setLikeCount((prev) => prev + 1);
+            if (state.setLikeCount) {
+              state.setLikeCount((prev) => prev + 1);
             } else {
               console.error("setLikeCount prop is not passed correctly");
             }

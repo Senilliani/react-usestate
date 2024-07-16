@@ -1,10 +1,13 @@
 import React from "react";
+import OurContext from "../OurContext";
 
-function MainArea(props) {
+function MainArea() {
+  const state = React.useContext(OurContext);
+
   return (
     <div
       className="main-area"
-      style={{ color: props.color, fontSize: `${props.size}px` }}
+      style={{ color: state.color, fontSize: `${state.size}px` }}
     >
       <p>
         Brenda lorem ipsum dolor sit amet consectetur adipisicing elit. Autem,
