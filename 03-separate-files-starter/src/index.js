@@ -7,30 +7,49 @@ import Footer from "./components/Footer";
 
 import OurContext from "./OurContext";
 
+const AnimalNamesContext = createContext();
+
 function App() {
   const [size, setSize] = useState(25);
   const [color, setColor] = useState("red");
   const [likeCount, setLikeCount] = useState(0);
+  const [names, setNames] = useState({ catName: "Meaw", dogName: "Barks" });
 
   return (
-    <OurContext.Provider
-      value={{ color, setColor, size, setSize, likeCount, setLikeCount }}
-    >
-      <div className="grid-parent">
-        <div className="header">
-          <h1>Welcome To Our App</h1>
-          <p>
-            The current size is {size} and the current color is {color}.
-          </p>
-          <p>
-            This page has been liked <strong>{likeCount}</strong> times.
-          </p>
+    <AnimalNamesContext.Provider value={names}>
+      <OurContext.Provider
+        value={{ color, setColor, size, setSize, likeCount, setLikeCount }}
+      >
+        <div className="grid-parent">
+          <div className="header">
+            <h1>Welcome To Our App</h1>
+            <p>
+              The current size is {size} and the current color is {color}.
+            </p>
+            <p>
+              This page has been liked <strong>{likeCount}</strong> times.
+            </p>
+          </div>
+          <Sidebar />
+          <MainArea />
+          <Footer />
+          <NoRenderExtraFooter />
         </div>
-        <Sidebar />
-        <MainArea />
-        <Footer setSize={setSize} setLikeCount={setLikeCount} />
-      </div>
-    </OurContext.Provider>
+      </OurContext.Provider>
+    </AnimalNamesContext.Provider>
+  );
+}
+
+const NoRenderExtraFooter = React.memo(ExtraFooter);
+
+function ExtraFooter() {
+  const names = React.useContext(AnimalNamesContext);
+  console.log("ExtraFooter rendered");
+  return (
+    <div>
+      <p>Cat name: {names.catName}</p>
+      <p>Dog name: {names.dogName}</p>
+    </div>
   );
 }
 
