@@ -1,29 +1,22 @@
 import React from "react";
-import OurContext from "../OurContext";
+import DispatchContext from "../DispatchContext";
 
 function Footer() {
-  const state = React.useContext(OurContext);
+  console.log("Footer component rendered");
+  const dispatch = React.useContext(DispatchContext);
 
   return (
     <footer className="footer">
       <p>
         This is the footer.{" "}
-        <button
-          onClick={() => {
-            state.setSize(40);
-          }}
-        >
+        <button onClick={() => dispatch({ type: "changeSize", value: 40 })}>
           Make the text 40px but leave the color the same
         </button>
       </p>
       <p>
         <button
           onClick={() => {
-            if (state.setLikeCount) {
-              state.setLikeCount((prev) => prev + 1);
-            } else {
-              console.error("setLikeCount prop is not passed correctly");
-            }
+            dispatch({ type: "incrementLikes" });
           }}
         >
           Like The Page
@@ -33,4 +26,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default React.memo(Footer);
